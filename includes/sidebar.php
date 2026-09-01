@@ -4,7 +4,7 @@
         <i class="fa-solid fa-cash-register me-2"></i> SmartPOS
     </div>
     <div class="list-group list-group-flush mt-3">
-        <a href="../index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-chart-line me-2"></i> Dashboard
         </a>
         <a href="../pos/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
