@@ -7,25 +7,25 @@
         <a href="../index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-chart-line me-2"></i> Dashboard
         </a>
-        <a href="../pos/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../pos/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-cart-shopping me-2"></i> POS / Checkout
         </a>
-        <a href="../products/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../products/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-box me-2"></i> Products
         </a>
-        <a href="../categories/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../categories/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-tags me-2"></i> Categories
         </a>
-        <a href="../suppliers/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../suppliers/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-truck me-2"></i> Suppliers
         </a>
-        <a href="../sales/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../sales/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-receipt me-2"></i> Sales & Invoices
         </a>
-        <a href="../expenses/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../expenses/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-wallet me-2"></i> Expenses
         </a>
-        <a href="../reports/index.html" class="list-group-item list-group-item-action bg-dark text-white py-2">
+        <a href="../reports/index.php" class="list-group-item list-group-item-action bg-dark text-white py-2">
             <i class="fa-solid fa-file-invoice-dollar me-2"></i> Reports
         </a>
     </div>
