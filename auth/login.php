@@ -38,7 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["signin"])) {
                 setcookie("remember_email", "", time() - 3600, "/");
             }
 
-            header("Location: ../index.php");
+            // التوجيه التلقائي حسب الـ Role
+            if ($data["role"] === 'admin') {
+                header("Location: ../reports/index.php");
+            } else {
+                header("Location: ../pos/index.php");
+            }
             exit;
         } else {
             $error = "Invalid email or password";
