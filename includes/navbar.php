@@ -6,16 +6,6 @@
             <span class="navbar-brand fw-bold text-secondary">SmartPOS System</span>
 
             <div class="d-flex align-items-center ms-auto gap-3">
-                <!-- Language Selector -->
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-globe me-1"></i> English
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item active" href="?lang=en"><i class="fa-solid fa-check me-2"></i>English</a></li>
-                        <li><a class="dropdown-item" href="?lang=ar">العربية (Arabic)</a></li>
-                    </ul>
-                </div>
 
                 <!-- User Menu -->
                 <div class="dropdown">

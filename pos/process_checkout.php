@@ -9,39 +9,46 @@ try {
 
     if (!empty($input['cart'])) {
         
-        // 1. حساب المجموع الكلي
-        $total = 0;
-        foreach ($input['cart'] as $item) {
-            $total += $item['price'] * $item['qty'];
+        $cart = $input['cart'];
+        $discount = floatval($input['discount'] ?? 0);
+        $tax_percent = floatval($input['tax_percent'] ?? 0);
+
+        // 1. حساب Subtotal المجموع المبدئي
+        $subtotal = 0;
+        foreach ($cart as $item) {
+            $subtotal += $item['price'] * $item['qty'];
         }
 
-        // 2. تجهيز بيانات الفاتورة
-        $invoice_no = 'INV-' . time();
-        $user_id = $_SESSION['user_id'] ?? 1; // معرف المستخدم الحالي أو 1 كافتراضي
-        $payment_method = 'Cash';
+        // 2. حساب قيمة الضريبة والمجموع النهائي Total
+        $after_discount = max(0, $subtotal - $discount);
+        $tax_amount = ($after_discount * $tax_percent) / 100;
+        $total = $after_discount + $tax_amount;
 
-        // 3. إدخال الفاتورة في جدول sales
+        $invoice_no = 'INV-' . time();
+        $user_id = $_SESSION['user_id'] ?? 1;
+
+        // 3. حفظ بيانات الفاتورة كاملة في جدول sales
         $stmt = $conn->prepare("
-            INSERT INTO sales (invoice_no, user_id, subtotal, total, paid, payment_method, sale_datetime) 
-            VALUES (?, ?, ?, ?, ?, ?, NOW())
+            INSERT INTO sales (invoice_no, user_id, subtotal, discount, tax, total, paid, payment_method, sale_datetime) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'Cash', NOW())
         ");
-        $stmt->execute([$invoice_no, $user_id, $total, $total, $total, $payment_method]);
+        $stmt->execute([$invoice_no, $user_id, $subtotal, $discount, $tax_amount, $total, $total]);
         $sale_id = $conn->lastInsertId();
 
-        // 4. خصم المخزون وإدخال عناصر الفاتورة
-        foreach ($input['cart'] as $item) {
-            // أ) خصم الكمية من جدول products
+        // 4. خصم الكميات وتسجيل المنتجات وحركة المخزون
+        foreach ($cart as $item) {
+            // أ) تنقيص كمية المنتج من جدول products
             $updateStock = $conn->prepare("UPDATE products SET stock = stock - ? WHERE id = ?");
             $updateStock->execute([$item['qty'], $item['id']]);
 
-            // ب) إدخال تفاصيل المنتج في جدول sale_items
+            // ب) إضافة العنصر لـ sale_items
             $insertItem = $conn->prepare("
                 INSERT INTO sale_items (sale_id, product_id, qty, price) 
                 VALUES (?, ?, ?, ?)
             ");
             $insertItem->execute([$sale_id, $item['id'], $item['qty'], $item['price']]);
 
-            // ج) تسجيل حركة المخزون في جدول stock_movements
+            // ج) تسجيل حركة المخزون في stock_movements
             $insertMovement = $conn->prepare("
                 INSERT INTO stock_movements (product_id, type, qty, note, date) 
                 VALUES (?, 'sale', ?, ?, NOW())
@@ -49,7 +56,7 @@ try {
             $insertMovement->execute([$item['id'], $item['qty'], "Sale Invoice #$invoice_no"]);
         }
 
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'sale_id' => $sale_id]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Cart is empty!']);
     }

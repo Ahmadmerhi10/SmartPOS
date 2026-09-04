@@ -46,7 +46,6 @@ $sales = $conn->query("
                             <th class="text-center">Items</th>
                             <th>Payment Method</th>
                             <th class="text-end">Total Amount</th>
-                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,16 +69,11 @@ $sales = $conn->query("
                                     <td class="text-end fw-bold text-success">
                                         $<?= number_format($sale['total'], 2) ?>
                                     </td>
-                                    <td class="text-center">
-                                        <a href="invoice_details.php?id=<?= $sale['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                                            <i class="fa-solid fa-eye me-1"></i> View
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8" class="text-center py-4 text-muted">
+                                <td colspan="7" class="text-center py-4 text-muted">
                                     <i class="fa-solid fa-receipt fa-2x mb-2 opacity-50"></i>
                                     <div>No sales transactions found.</div>
                                 </td>
